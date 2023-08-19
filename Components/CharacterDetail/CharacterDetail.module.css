@@ -1,0 +1,111 @@
+.characterDetail {
+  width: 60%;
+}
+
+.CharacterDetail_desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #334155;
+  border-radius: 8px;
+  padding: 10px;
+}
+.CharacterDetail_episodes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  row-gap: 10px;
+  margin-bottom: 20px;
+  background-color: #334155;
+  border-radius: 8px;
+  padding: 10px;
+}
+.CharacterDetail_desc_img img{
+  width:60% ;
+  border-radius: 8px;
+}
+.CharacterDetail_desc_sign{
+  height: 10px;
+  width: 10px;
+  background-color: #dc2626;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.characterDetail_header , .characterDetail_info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.characterDetail_header h3 {
+  color: rgb(225, 239, 251);
+}
+.characterDetail_info_count {
+  background-color: rgb(225, 239, 251);
+  color: #334155;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.characterDetail_info h5 {
+  color: #fff;
+  font-size: 12px;
+  margin-right: 10px;
+}
+.characterDetail_info_desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.characterDetail_info button {
+  background-color: #4b5563;
+  color: rgb(223, 235, 245);
+  border: 1px solid #334155;
+  outline: none;
+  padding: 7px 40px;
+  border-radius: 8px;
+}
+.CharacterDetail_desc_body h2 {
+  color: #fff;
+}
+.CharacterDetail_desc_body div {
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 15px;
+}
+.CharacterDetail_desc_body div span{
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.CharacterDetail_desc_two {
+  color: #fff;
+  margin-bottom: 10px;
+}
+.CharacterDetail_desc_body button {
+  background-color: #4b5563;
+  border: 1px solid #4b5563;
+  border-radius: 8px;
+  color: rgb(232, 232, 232);
+  outline: none;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+button:hover {
+  background-color: rgb(232, 232, 232);
+  color: #4b5563;
+}
+.CharacterDetail_desc_one {
+  color: #bdbbbb;
+  margin-bottom: 10px;
+}

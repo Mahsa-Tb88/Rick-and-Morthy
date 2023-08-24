@@ -1,16 +1,45 @@
 import { HiOutlineHeart } from "react-icons/hi";
 import Style from "./Navbar.module.css";
-function Navbar() {
+import { useState } from "react";
+function Navbar({ children }) {
   return (
     <div className={Style.navbar}>
       <h3>Loogo</h3>
-      <input type="text" placeholder="search..." />
-      <div className={Style.navbar_result}>Fpound x Characters</div>
-      <div className={Style.navbar_heart}>
-        <HiOutlineHeart />
-        <span>3</span>
-      </div>
+      {children}
+      <Heart />
     </div>
   );
 }
 export default Navbar;
+
+export function Search({ querry, setQuerry }) {
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="search..."
+        onChange={(e) => setQuerry(e.target.value)}
+        value={querry}
+      />
+    </div>
+  );
+}
+
+export function Results({ numOfResults }) {
+  return (
+    <div>
+      <div className={Style.navbar_result}>
+        Fpound {numOfResults} Characters
+      </div>
+    </div>
+  );
+}
+
+function Heart() {
+  return (
+    <div className={Style.navbar_heart}>
+      <HiOutlineHeart />
+      <span>3</span>
+    </div>
+  );
+}

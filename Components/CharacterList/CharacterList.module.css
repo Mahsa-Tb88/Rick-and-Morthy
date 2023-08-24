@@ -9,6 +9,10 @@
   background-color: #334155;
   border-radius: 8px;
   padding: 10px;
+  cursor: pointer;
+}
+.character:hover{
+  background-color:#2f4b72 ;
 }
 .character_main {
   display: flex;
@@ -22,7 +26,7 @@
   margin-right: 10px;
 }
 
-.character_detail{
+.character_info{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,12 +55,12 @@
   border-radius: 50%;
   background-color: #16a34a;
 }
+
 .character_status_dead {
-  height: 20px;
-  width: 20px;
+  height: 8px;
+  width: 8px;
   border-radius: 50%;
   background-color: #e11d48;
-  margin-right: 5px;
 }
 .character_option{
     color: #fff;

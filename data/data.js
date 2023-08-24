@@ -38,7 +38,7 @@ export const allCharacters = [
   {
     id: 2,
     name: "Summer Smith",
-    status: "Alive ",
+    status: "Alive",
     species: " Human",
     type: "",
     gender: "Female",

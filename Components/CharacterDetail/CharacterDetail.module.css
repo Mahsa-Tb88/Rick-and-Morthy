@@ -64,13 +64,14 @@
   align-items: center;
   color: #fff;
 }
-.characterDetail_info button {
+.characterDetail_info_badge  {
   background-color: #4b5563;
   color: rgb(223, 235, 245);
   border: 1px solid #334155;
   outline: none;
-  padding: 7px 40px;
+  padding: 5px 40px;
   border-radius: 8px;
+  font-size: 12px
 }
 .CharacterDetail_desc_body h2 {
   color: #fff;
@@ -90,6 +91,13 @@
 .CharacterDetail_desc_two {
   color: #fff;
   margin-bottom: 10px;
+}
+.CharacterDetail_comment{
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  width: 60%;
+
 }
 .CharacterDetail_desc_body button {
   background-color: #4b5563;

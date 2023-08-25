@@ -1,4 +1,4 @@
-.characterlist{
+.characterlist {
   width: 35%;
 }
 .character {
@@ -11,8 +11,18 @@
   padding: 10px;
   cursor: pointer;
 }
-.character:hover{
-  background-color:#2f4b72 ;
+.character:hover {
+  background-color: #2f4b72;
+}
+.character_selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #2f4b72;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
 }
 .character_main {
   display: flex;
@@ -26,27 +36,28 @@
   margin-right: 10px;
 }
 
-.character_info{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
+.character_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
 }
 
-.character_status , .character_species{
-    font-size: 14px;
-    color: #f2f2f2;
-    margin-left: 5px;
+.character_status,
+.character_species {
+  font-size: 14px;
+  color: #f2f2f2;
+  margin-left: 5px;
 }
-.character_name{
-    color: #fff;
+.character_name {
+  color: #fff;
 }
-.character_desc{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 10px;
+.character_desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
 }
 .character_status_alive {
   display: inline-block;
@@ -62,12 +73,12 @@
   border-radius: 50%;
   background-color: #e11d48;
 }
-.character_option{
-    color: #fff;
-    cursor: pointer;
+.character_option {
+  color: #fff;
+  cursor: pointer;
 }
 
-.character_option:hover{
-    background-color: #16a34a;
-    border-radius: 3px;
+.character_option:hover {
+  background-color: #16a34a;
+  border-radius: 3px;
 }

@@ -90,6 +90,10 @@ function App() {
   }, [querry]);
 
   const selectCharacterHandler = (id) => {
+    console.log(selectId, id);
+    if (selectId == id) {
+      return setSelectId(null);
+    }
     setSelectId(id);
   };
   return (
@@ -104,6 +108,7 @@ function App() {
           characters={characters}
           isLoading={isLoading}
           onSelectCharacter={selectCharacterHandler}
+          selectId={selectId}
         />
         <CharacterDetail selectId={selectId} />
       </Main>

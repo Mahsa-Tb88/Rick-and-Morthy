@@ -3,10 +3,11 @@ import { episodes } from "../../data/data";
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function CharacterDetail({ selectId }) {
-  console.log(selectId);
   const [character, setCharacter] = useState(null);
+  const [episodes, setEpidodes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -17,11 +18,27 @@ function CharacterDetail({ selectId }) {
           `https://rickandmortyapi.com/api/character/${selectId}`
         );
         setCharacter(data);
-        // console.log(data);
+
+        //getting number of episodes that each character played
+        const episodesCharacter = data.episode;
+        const episodesId = episodesCharacter.map((e) => {
+          return e.split("/").at(-1);
+        });
+        const selectEpisodes = await axios.get(
+          `https://rickandmortyapi.com/api/episode/${episodesId}`
+        );
+        const allEpisodesOfCharacter = selectEpisodes.data;
+        // const newAllEpisodesOfCharacter = [];
+        // if (!Array.isArray(allEpisodesOfCharacter)) {
+        //   newAllEpisodesOfCharacter.push(allEpisodesOfCharacter);
+        //   allEpisodesOfCharacter = newAllEpisodesOfCharacter;
+        // }
+        setEpidodes([allEpisodesOfCharacter].flat());
       } catch (err) {
-        console.log(err.message);
+        toast.error(err.response.data.error);
+        console.log(err.response);
       } finally {
-        // setIsLoading(false);
+        setIsLoading(false);
       }
     }
 
@@ -52,11 +69,11 @@ function CharacterDetail({ selectId }) {
             {episodes.length}
           </span>
         </div>
-        {episodes.map((episode, index) => {
-          return (
-            <EpisodesList episode={episode} key={episode.id} index={index} />
-          );
-        })}
+        <div className={style.episodeList}>
+          {episodes.map((episode, index) => {
+            return <Episode episode={episode} key={episode.id} index={index} />;
+          })}
+        </div>
       </div>
     </div>
   );
@@ -89,12 +106,12 @@ function Character({ character }) {
   );
 }
 
-function EpisodesList({ episode, index }) {
+function Episode({ episode, index }) {
   return (
     <div className={style.characterDetail_info}>
       <div className={style.characterDetail_info_desc}>
         <h5>
-          {String(index + 1).padStart(2, "0")} : {episode.episode} :{" "}
+          {String(index + 1).padStart(2, "0")} - {episode.episode}
         </h5>
         <span>{episode.name}</span>
       </div>

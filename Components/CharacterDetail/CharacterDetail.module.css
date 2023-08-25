@@ -33,11 +33,25 @@
   border-radius: 50%;
   margin-right: 10px;
 }
-.characterDetail_header , .characterDetail_info{
+.characterDetail_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 20px;
+}
+.characterDetail_info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ 
+  width: 100%;
+
+}
+.episodeList{
+  width: 100%;
+  height: 300px;
+  overflow: auto;
 }
 .characterDetail_header h3 {
   color: rgb(225, 239, 251);
@@ -71,7 +85,10 @@
   outline: none;
   padding: 5px 40px;
   border-radius: 8px;
-  font-size: 12px
+  font-size: 12px;
+  margin: 10px 0;
+  
+  
 }
 .CharacterDetail_desc_body h2 {
   color: #fff;

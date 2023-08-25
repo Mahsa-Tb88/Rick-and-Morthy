@@ -1,7 +1,8 @@
 import { HiClipboard } from "react-icons/hi";
+import { HiClipboardList } from "react-icons/hi";
 import Style from "./CharacterList.module.css";
 import Loader from "../Loader/Loader";
-function CharacterList({ characters, isLoading, onSelectCharacter }) {
+function CharacterList({ characters, isLoading, onSelectCharacter, selectId }) {
   if (isLoading) {
     return <Loader />;
   }
@@ -13,6 +14,7 @@ function CharacterList({ characters, isLoading, onSelectCharacter }) {
             character={character}
             key={character.id}
             onSelectCharacter={onSelectCharacter}
+            selectId={selectId}
           />
         );
       })}
@@ -22,10 +24,12 @@ function CharacterList({ characters, isLoading, onSelectCharacter }) {
 
 export default CharacterList;
 
-function Character({ character, onSelectCharacter }) {
+function Character({ character, onSelectCharacter, selectId }) {
   return (
     <div
-      className={Style.character}
+      className={`${Style.character} , ${
+        selectId == character.id ? Style.character_selected : ""
+      }`}
       onClick={() => onSelectCharacter(character.id)}
     >
       <div className={Style.character_main}>
@@ -36,7 +40,7 @@ function Character({ character, onSelectCharacter }) {
         </div>
       </div>
       <div className={Style.character_option}>
-        <HiClipboard />
+        {selectId == character.id ? <HiClipboardList /> : <HiClipboard />}
       </div>
     </div>
   );

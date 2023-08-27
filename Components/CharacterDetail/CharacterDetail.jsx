@@ -5,7 +5,7 @@ import Loader from "../Loader/Loader";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-function CharacterDetail({ selectId }) {
+function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
   const [character, setCharacter] = useState(null);
   const [episodes, setEpidodes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +61,11 @@ function CharacterDetail({ selectId }) {
 
   return (
     <div className={style.characterDetail}>
-      <Character character={character} />
+      <Character
+        character={character}
+        onAddFavorite={favoriteHandler}
+        isAddedToFavorite={isAddedToFavorite}
+      />
       <div className={style.CharacterDetail_episodes}>
         <div className={style.characterDetail_header}>
           <h3>List of Episodes</h3>
@@ -81,7 +85,7 @@ function CharacterDetail({ selectId }) {
 
 export default CharacterDetail;
 
-function Character({ character }) {
+function Character({ character, onAddFavorite, isAddedToFavorite }) {
   return (
     <div className={style.CharacterDetail_desc}>
       <div className={style.CharacterDetail_desc_img}>
@@ -100,7 +104,9 @@ function Character({ character }) {
         <p className={style.CharacterDetail_desc_two}>
           {character.origin.name}
         </p>
-        <button>Add to Favorite</button>
+        <button onClick={() => onAddFavorite(character)}>
+          {isAddedToFavorite ? "Remove favorite" : "Add to Favorite"}
+        </button>
       </div>
     </div>
   );

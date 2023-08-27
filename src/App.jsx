@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { allCharacters, character } from "../data/data";
 import toast, { Toaster } from "react-hot-toast";
-import Navbar, { Results } from "../Components/Navbar/Navbar";
+import Navbar, { Results, Heart } from "../Components/Navbar/Navbar";
 import { Search } from "../Components/Navbar/Navbar";
 import CharacterList from "../Components/CharacterList/CharacterList";
 import "./App.css";
@@ -13,6 +13,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [querry, setQuerry] = useState("");
   const [selectId, setSelectId] = useState(null);
+  const [favoriteList, setFavoriteList] = useState([]);
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -96,12 +97,25 @@ function App() {
     }
     setSelectId(id);
   };
+
+  const favoriteHandler = (character) => {
+    favoriteList.indexOf(character) == -1
+      ? setFavoriteList([...favoriteList, character])
+      : setFavoriteList(
+          favoriteList.filter(
+            (favoriteCharacter) => favoriteCharacter != character
+          )
+        );
+  
+  };
+  const isAddedToFavorite = favoriteList.map((fav) => fav.id).includes(selectId);
   return (
     <div>
       <Toaster />
       <Navbar>
         <Search querry={querry} setQuerry={setQuerry} />
         <Results numOfResults={characters.length} />
+        <Heart numOfFavorite={favoriteList.length} />
       </Navbar>
       <Main>
         <CharacterList
@@ -110,7 +124,11 @@ function App() {
           onSelectCharacter={selectCharacterHandler}
           selectId={selectId}
         />
-        <CharacterDetail selectId={selectId} />
+        <CharacterDetail
+          selectId={selectId}
+          favoriteHandler={favoriteHandler}
+          isAddedToFavorite={isAddedToFavorite}
+        />
       </Main>
     </div>
   );

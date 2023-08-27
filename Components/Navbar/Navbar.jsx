@@ -4,9 +4,8 @@ import { useState } from "react";
 function Navbar({ children }) {
   return (
     <div className={Style.navbar}>
-      <h3>Loogo</h3>
+      <h3><img src="./te829.jpg"/>Logo</h3>
       {children}
-      <Heart />
     </div>
   );
 }
@@ -35,11 +34,11 @@ export function Results({ numOfResults }) {
   );
 }
 
-function Heart() {
+export function Heart({ numOfFavorite }) {
   return (
     <div className={Style.navbar_heart}>
       <HiOutlineHeart />
-      <span>3</span>
+      <span>{numOfFavorite}</span>
     </div>
   );
 }

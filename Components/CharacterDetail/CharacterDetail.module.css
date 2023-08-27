@@ -50,7 +50,7 @@
 }
 .episodeList{
   width: 100%;
-  height: 300px;
+  max-height: 300px;
   overflow: auto;
 }
 .characterDetail_header h3 {

@@ -67,11 +67,14 @@ function App() {
   // }, []);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     async function fetchData() {
       try {
         setIsLoading(true);
         const { data } = await axios.get(
-          "https://rickandmortyapi.com/api/character"
+          "https://rickandmortyapi.com/api/character",
+          { signal }
         );
         const characters = data.results;
         const filterCharacters = characters.filter((character) =>
@@ -81,13 +84,28 @@ function App() {
         setCharacters(filterCharacters);
         // setCharacters(data.results);
       } catch (err) {
-        console.log(err.response.data.error);
+        //if use fetch :
+        // if(err.name!="AbortError"){
+          // setCharacters([]);
+          // toast.error(err.response.data.error);
+        // }
+
+        //if use axios
+        // if(!axios.isCansel()){
+          // setCharacters([]);
+          // toast.error(err.response.data.error);
+        // }
+        console.log(err.name);
+        setCharacters([]);
         toast.error(err.response.data.error);
       } finally {
         setIsLoading(false);
       }
     }
     fetchData();
+    return () => {
+      controller.abort();
+    };
   }, [querry]);
 
   const selectCharacterHandler = (id) => {
@@ -106,9 +124,10 @@ function App() {
             (favoriteCharacter) => favoriteCharacter != character
           )
         );
-  
   };
-  const isAddedToFavorite = favoriteList.map((fav) => fav.id).includes(selectId);
+  const isAddedToFavorite = favoriteList
+    .map((fav) => fav.id)
+    .includes(selectId);
   return (
     <div>
       <Toaster />

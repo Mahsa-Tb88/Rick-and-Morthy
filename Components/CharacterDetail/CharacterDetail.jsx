@@ -1,5 +1,6 @@
+import { HiArrowNarrowDown } from "react-icons/hi";
+import { HiOutlineHeart } from "react-icons/hi";
 import style from "./CharacterDetail.module.css";
-import { episodes } from "../../data/data";
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import axios from "axios";
@@ -9,6 +10,7 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
   const [character, setCharacter] = useState(null);
   const [episodes, setEpidodes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAscSort, setIsAscSort] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,10 +35,13 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
         //   newAllEpisodesOfCharacter.push(allEpisodesOfCharacter);
         //   allEpisodesOfCharacter = newAllEpisodesOfCharacter;
         // }
+        const episodesOfCharacter = [allEpisodesOfCharacter].flat();
+        episodesOfCharacter.sort((a, b) => (a.created > b.created ? -1 : 1));
+        console.log(episodesOfCharacter);
         setEpidodes([allEpisodesOfCharacter].flat());
       } catch (err) {
         toast.error(err.response.data.error);
-        console.log(err.response);
+        // console.log(err.response);
       } finally {
         setIsLoading(false);
       }
@@ -58,10 +63,18 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
         Please select Character
       </div>
     );
+  const sortHandler = () => {
+    setIsAscSort(!isAscSort);
+    setEpidodes(
+      isAscSort
+        ? episodes.sort((a, b) => (a.created > b.created ? -1 : 1))
+        : episodes.sort((a, b) => (a.created > b.created ? 1 : -1))
+    );
+  };
 
   return (
     <div className={style.characterDetail}>
-      <Character
+      <CharacterSubInFo
         character={character}
         onAddFavorite={favoriteHandler}
         isAddedToFavorite={isAddedToFavorite}
@@ -69,9 +82,20 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
       <div className={style.CharacterDetail_episodes}>
         <div className={style.characterDetail_header}>
           <h3>List of Episodes</h3>
-          <span className={style.characterDetail_info_count}>
-            {episodes.length}
-          </span>
+          <div>
+            <span className={style.characterDetail_info_count}>
+              {episodes.length}
+            </span>
+            <span
+              className={style.characterDetail_info_sort}
+              onClick={() => sortHandler()}
+            >
+              <HiArrowNarrowDown
+                className={style.characterDetail_info_sort_icon}
+                style={{ rotate: !isAscSort ? "0deg" : "180deg" }}
+              />
+            </span>
+          </div>
         </div>
         <div className={style.episodeList}>
           {episodes.map((episode, index) => {
@@ -79,13 +103,14 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
           })}
         </div>
       </div>
+      {/*<Episodes episodes={episodes} />*/}
     </div>
   );
 }
 
 export default CharacterDetail;
 
-function Character({ character, onAddFavorite, isAddedToFavorite }) {
+function CharacterSubInFo({ character, onAddFavorite, isAddedToFavorite }) {
   return (
     <div className={style.CharacterDetail_desc}>
       <div className={style.CharacterDetail_desc_img}>
@@ -111,6 +136,25 @@ function Character({ character, onAddFavorite, isAddedToFavorite }) {
     </div>
   );
 }
+
+// function Episodes({ episodes }) {
+//   {
+//     console.log(episodes);
+//   }
+//   <div className={style.CharacterDetail_episodes}>
+//     <div className={style.characterDetail_header}>
+//       <h3>List of Episodes</h3>
+//       <span className={style.characterDetail_info_count}>
+//         {episodes.length}
+//       </span>
+//     </div>
+//     <div className={style.episodeList}>
+//       {episodes.map((episode, index) => {
+//         return <Episode episode={episode} key={episode.id} index={index} />;
+//       })}
+//     </div>
+//   </div>;
+// }
 
 function Episode({ episode, index }) {
   return (

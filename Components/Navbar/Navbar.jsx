@@ -1,6 +1,5 @@
 import { HiOutlineHeart } from "react-icons/hi";
 import Style from "./Navbar.module.css";
-import { useState } from "react";
 function Navbar({ children }) {
   return (
     <div className={Style.navbar}>

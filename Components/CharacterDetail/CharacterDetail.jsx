@@ -37,7 +37,7 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
         // }
         const episodesOfCharacter = [allEpisodesOfCharacter].flat();
         episodesOfCharacter.sort((a, b) => (a.created > b.created ? -1 : 1));
-        console.log(episodesOfCharacter);
+        // console.log(episodesOfCharacter);
         setEpidodes([allEpisodesOfCharacter].flat());
       } catch (err) {
         toast.error(err.response.data.error);
@@ -79,38 +79,22 @@ function CharacterDetail({ selectId, favoriteHandler, isAddedToFavorite }) {
         onAddFavorite={favoriteHandler}
         isAddedToFavorite={isAddedToFavorite}
       />
-      <div className={style.CharacterDetail_episodes}>
-        <div className={style.characterDetail_header}>
-          <h3>List of Episodes</h3>
-          <div>
-            <span className={style.characterDetail_info_count}>
-              {episodes.length}
-            </span>
-            <span
-              className={style.characterDetail_info_sort}
-              onClick={() => sortHandler()}
-            >
-              <HiArrowNarrowDown
-                className={style.characterDetail_info_sort_icon}
-                style={{ rotate: !isAscSort ? "0deg" : "180deg" }}
-              />
-            </span>
-          </div>
-        </div>
-        <div className={style.episodeList}>
-          {episodes.map((episode, index) => {
-            return <Episode episode={episode} key={episode.id} index={index} />;
-          })}
-        </div>
-      </div>
-      {/*<Episodes episodes={episodes} />*/}
+      <Episodes
+        episodes={episodes}
+        sortHandler={sortHandler}
+        isAscSort={isAscSort}
+      />
     </div>
   );
 }
 
 export default CharacterDetail;
 
-function CharacterSubInFo({ character, onAddFavorite, isAddedToFavorite }) {
+export function CharacterSubInFo({
+  character,
+  onAddFavorite,
+  isAddedToFavorite,
+}) {
   return (
     <div className={style.CharacterDetail_desc}>
       <div className={style.CharacterDetail_desc_img}>
@@ -137,24 +121,34 @@ function CharacterSubInFo({ character, onAddFavorite, isAddedToFavorite }) {
   );
 }
 
-// function Episodes({ episodes }) {
-//   {
-//     console.log(episodes);
-//   }
-//   <div className={style.CharacterDetail_episodes}>
-//     <div className={style.characterDetail_header}>
-//       <h3>List of Episodes</h3>
-//       <span className={style.characterDetail_info_count}>
-//         {episodes.length}
-//       </span>
-//     </div>
-//     <div className={style.episodeList}>
-//       {episodes.map((episode, index) => {
-//         return <Episode episode={episode} key={episode.id} index={index} />;
-//       })}
-//     </div>
-//   </div>;
-// }
+function Episodes({ episodes, sortHandler, isAscSort }) {
+  return (
+    <div className={style.CharacterDetail_episodes}>
+      <div className={style.characterDetail_header}>
+        <h3>List of Episodes</h3>
+        <div>
+          <span className={style.characterDetail_info_count}>
+            {episodes.length}
+          </span>
+          <span
+            className={style.characterDetail_info_sort}
+            onClick={() => sortHandler()}
+          >
+            <HiArrowNarrowDown
+              className={style.characterDetail_info_sort_icon}
+              style={{ rotate: !isAscSort ? "0deg" : "180deg" }}
+            />
+          </span>
+        </div>
+      </div>
+      <div className={style.episodeList}>
+        {episodes.map((episode, index) => {
+          return <Episode episode={episode} key={episode.id} index={index} />;
+        })}
+      </div>
+    </div>
+  );
+}
 
 function Episode({ episode, index }) {
   return (

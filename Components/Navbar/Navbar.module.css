@@ -26,6 +26,7 @@
   color: #be185d;
   font-size: 25px;
   position: relative;
+  cursor: pointer;
 }
 
 .navbar_heart span {

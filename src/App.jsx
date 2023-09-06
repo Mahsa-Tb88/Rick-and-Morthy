@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { allCharacters, character } from "../data/data";
 import toast, { Toaster } from "react-hot-toast";
 import Navbar, { Results, Heart } from "../Components/Navbar/Navbar";
 import { Search } from "../Components/Navbar/Navbar";
 import CharacterList from "../Components/CharacterList/CharacterList";
 import "./App.css";
 import axios from "axios";
+import Modal from "../Components/Modal/Modal";
 import CharacterDetail from "../Components/CharacterDetail/CharacterDetail";
 
 function App() {
@@ -13,7 +13,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [querry, setQuerry] = useState("");
   const [selectId, setSelectId] = useState(null);
-  const [favoriteList, setFavoriteList] = useState([]);
+  const [favoriteList, setFavoriteList] = useState(
+    () => JSON.parse(localStorage.getItem("FAVORITES")) || []
+  );
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -86,14 +88,14 @@ function App() {
       } catch (err) {
         //if use fetch :
         // if(err.name!="AbortError"){
-          // setCharacters([]);
-          // toast.error(err.response.data.error);
+        // setCharacters([]);
+        // toast.error(err.response.data.error);
         // }
 
         //if use axios
         // if(!axios.isCansel()){
-          // setCharacters([]);
-          // toast.error(err.response.data.error);
+        // setCharacters([]);
+        // toast.error(err.response.data.error);
         // }
         console.log(err.name);
         setCharacters([]);
@@ -108,8 +110,12 @@ function App() {
     };
   }, [querry]);
 
+  useEffect(() => {
+    localStorage.setItem("FAVORITES", JSON.stringify(favoriteList));
+  }, [favoriteList]);
+
   const selectCharacterHandler = (id) => {
-    console.log(selectId, id);
+    // console.log(selectId, id);
     if (selectId == id) {
       return setSelectId(null);
     }
@@ -117,24 +123,39 @@ function App() {
   };
 
   const favoriteHandler = (character) => {
-    favoriteList.indexOf(character) == -1
-      ? setFavoriteList([...favoriteList, character])
-      : setFavoriteList(
+    const idFavorileList = favoriteList.map((item) => item.id);
+    idFavorileList.includes(character.id)
+      ? setFavoriteList(
           favoriteList.filter(
-            (favoriteCharacter) => favoriteCharacter != character
+            (favoriteCharacter) => favoriteCharacter.id != character.id
           )
-        );
+        )
+      : setFavoriteList([...favoriteList, character]);
   };
+
   const isAddedToFavorite = favoriteList
     .map((fav) => fav.id)
     .includes(selectId);
+
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
       <Toaster />
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        favoriteList={favoriteList}
+        onRemoveFavoriteItem={favoriteHandler}
+      />
       <Navbar>
         <Search querry={querry} setQuerry={setQuerry} />
         <Results numOfResults={characters.length} />
-        <Heart numOfFavorite={favoriteList.length} />
+        <Heart
+          numOfFavorite={favoriteList.length}
+          open={open}
+          setOpen={setOpen}
+        />
       </Navbar>
       <Main>
         <CharacterList

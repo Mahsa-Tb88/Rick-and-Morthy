@@ -2,6 +2,7 @@ import { HiClipboard } from "react-icons/hi";
 import { HiClipboardList } from "react-icons/hi";
 import Style from "./CharacterList.module.css";
 import Loader from "../Loader/Loader";
+import { Children } from "react";
 function CharacterList({ characters, isLoading, onSelectCharacter, selectId }) {
   if (isLoading) {
     return <Loader />;
@@ -10,12 +11,16 @@ function CharacterList({ characters, isLoading, onSelectCharacter, selectId }) {
     <div className={Style.characterlist}>
       {characters.map((character) => {
         return (
-          <Character
-            character={character}
-            key={character.id}
-            onSelectCharacter={onSelectCharacter}
-            selectId={selectId}
-          />
+          <Character character={character} key={character.id}>
+            <button
+              onClick={() => onSelectCharacter(character.id)}
+              className={`${Style.character_btn} , ${
+                selectId == character.id ? Style.character_btn_selected : ""
+              }`}
+            >
+              {selectId == character.id ? <HiClipboardList /> : <HiClipboard />}
+            </button>
+          </Character>
         );
       })}
     </div>
@@ -24,14 +29,9 @@ function CharacterList({ characters, isLoading, onSelectCharacter, selectId }) {
 
 export default CharacterList;
 
-function Character({ character, onSelectCharacter, selectId }) {
+export function Character({ character, children }) {
   return (
-    <div
-      className={`${Style.character} , ${
-        selectId == character.id ? Style.character_selected : ""
-      }`}
-      onClick={() => onSelectCharacter(character.id)}
-    >
+    <div className={Style.character}>
       <div className={Style.character_main}>
         <img src={character.image} />
         <div className={Style.character_desc}>
@@ -39,9 +39,7 @@ function Character({ character, onSelectCharacter, selectId }) {
           <CharacterInfo character={character} />
         </div>
       </div>
-      <div className={Style.character_option}>
-        {selectId == character.id ? <HiClipboardList /> : <HiClipboard />}
-      </div>
+      {children}
     </div>
   );
 }

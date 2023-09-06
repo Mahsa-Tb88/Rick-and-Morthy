@@ -73,12 +73,21 @@
   border-radius: 50%;
   background-color: #e11d48;
 }
-.character_option {
+.character_btn {
   color: #fff;
+  outline: none;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  padding: 6px;
+}
+.character_btn_selected {
+  background-color: #16a34a;
+  padding: 8px;
+  border-radius: 3px;
 }
 
-.character_option:hover {
+.character_btn:hover {
   background-color: #16a34a;
   border-radius: 3px;
 }

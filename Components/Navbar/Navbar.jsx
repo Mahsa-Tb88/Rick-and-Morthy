@@ -3,7 +3,10 @@ import Style from "./Navbar.module.css";
 function Navbar({ children }) {
   return (
     <div className={Style.navbar}>
-      <h3><img src="./te829.jpg"/>Logo</h3>
+      <h3>
+        <img src="./te829.jpg" />
+        Logo
+      </h3>
       {children}
     </div>
   );
@@ -33,9 +36,9 @@ export function Results({ numOfResults }) {
   );
 }
 
-export function Heart({ numOfFavorite }) {
+export function Heart({ numOfFavorite, open, setOpen }) {
   return (
-    <div className={Style.navbar_heart}>
+    <div className={Style.navbar_heart} onClick={() => setOpen(true)}>
       <HiOutlineHeart />
       <span>{numOfFavorite}</span>
     </div>

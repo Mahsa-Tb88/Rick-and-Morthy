@@ -1,11 +1,11 @@
 import { HiOutlineHeart } from "react-icons/hi";
+import Images from "../../images/Images"
 import Style from "./Navbar.module.css";
 function Navbar({ children }) {
   return (
     <div className={Style.navbar}>
       <h3>
-        <img src="./te829.jpg" />
-        Logo
+      <img className={Style.img_logo} src={Images.image1} alt='image logo'/>
       </h3>
       {children}
     </div>
